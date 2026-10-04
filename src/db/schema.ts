@@ -1,4 +1,5 @@
 import {
+  boolean,
   pgTable,
   text,
   timestamp,
@@ -19,6 +20,9 @@ export const users = pgTable("users", {
   })
     .notNull()
     .default("unset"),
+  isChirpyRed: boolean("is_chirpy_red")
+    .notNull()
+    .default(false),
 });
 
 export type User = typeof users.$inferSelect;
@@ -41,3 +45,22 @@ export const chirps = pgTable("chirps", {
 });
 
 export type NewChirp = typeof chirps.$inferInsert;
+
+export const refreshTokens = pgTable("refresh_tokens", {
+  token: text("token").primaryKey(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, {
+      onDelete: "cascade",
+    }),
+  expiresAt: timestamp("expires_at").notNull(),
+  revokedAt: timestamp("revoked_at"),
+});
+
+export type NewRefreshToken =
+  typeof refreshTokens.$inferInsert;

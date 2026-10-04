@@ -22,6 +22,20 @@
       "when": 1791119402943,
       "tag": "0002_blue_patriot",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791121360957,
+      "tag": "0003_pretty_micromacro",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791127612622,
+      "tag": "0004_faithful_ultron",
+      "breakpoints": true
     }
   ]
 }
